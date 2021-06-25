@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const mongoose = require("mongoose");
-const url = "mongodb://192.168.1.5/CarsDB";
+const url = "mongodb+srv://Gopinath0332:gopi0332*@cluster0.hsutt.mongodb.net/sample_airbnb?retryWrites=true&w=majority";
 
 var app = express();
 mongoose.connect(url, {
