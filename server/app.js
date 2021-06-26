@@ -4,15 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const expenseRouter = require('./routes/expense');
 
 const mongoose = require("mongoose");
-const url = "mongodb+srv://Gopinath0332:gopi0332*@cluster0.hsutt.mongodb.net/sample_airbnb?retryWrites=true&w=majority";
+const url = "mongodb+srv://Gopinath0332:gopi0332*@cluster0.hsutt.mongodb.net/expense?retryWrites=true&w=majority";
 
 var app = express();
 mongoose.connect(url, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 const dbConnection = mongoose.connection;
@@ -20,6 +20,8 @@ const dbConnection = mongoose.connection;
 dbConnection.on("open", () => {
   console.log("Connected to MongoDb");
 });
+
+dbConnection.on('error', console.error.bind(console, 'connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,8 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/expense', expenseRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
