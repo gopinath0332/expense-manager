@@ -31,15 +31,22 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  created(){
+    axios.get('/expense').then(res => {
+      const data = res.data;
+      console.log('data ', data);
+    }).catch()
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit CSS to this component onupdately -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
